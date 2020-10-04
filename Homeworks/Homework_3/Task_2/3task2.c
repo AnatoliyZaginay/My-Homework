@@ -194,4 +194,5 @@ void main()
 		printf("Число %i %s в сгенерированном массиве\n", randomNumber, 
 			binarySearch(array, 0, n - 1, randomNumber) ? "найдено" : "не найдено");
 	}
+	free(array);
 }
