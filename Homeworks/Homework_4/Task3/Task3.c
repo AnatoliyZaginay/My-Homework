@@ -1,5 +1,6 @@
 ﻿#include <stdio.h>
 #include <locale.h>
+#include <stdbool.h>
 
 #define NAME_LENGTH 30
 #define NUMBER_LENGTH 30
@@ -43,12 +44,10 @@ void saveFile(struct Contact array[], const char fileName[], const int lasIndex)
 	fclose(file);
 }
 
-void addContact(struct Contact array[], int* currentIndex)
+void addContact(struct Contact array[], int* currentIndex, const char name[NAME_LENGTH], const char number[NUMBER_LENGTH])
 {
-	printf("Введите имя: ");
-	scanf("%s", &array[*currentIndex].name);
-	printf("Введите номер телефон: ");
-	scanf("%s", &array[*currentIndex].phoneNumber);
+	strcpy(array[*currentIndex].name, name);
+	strcpy(array[*currentIndex].phoneNumber, number);
 	++*currentIndex;
 }
 
@@ -72,7 +71,7 @@ int nameSearch(struct Contact array[], const int lastIndex, const char number[NU
 	return -1;
 }
 
-int phoneNumberSearch(struct Contact array[], const int lastIndex, const char name[NUMBER_LENGTH])
+int phoneNumberSearch(struct Contact array[], const int lastIndex, const char name[NAME_LENGTH])
 {
 	for (int i = 0; i < lastIndex; ++i)
 	{
@@ -112,16 +111,24 @@ void main()
 		case 0:
 			break;
 		case 1:
-			addContact(phoneBook, &currentIndex);
+		{
+			char name[NAME_LENGTH];
+			char phoneNumber[NUMBER_LENGTH];
+			printf("Введите имя: ");
+			scanf("%s", &name);
+			printf("Введите номер телефон: ");
+			scanf("%s", &phoneNumber);
+			addContact(phoneBook, &currentIndex, name, phoneNumber);
 			printf("Контакт сохранен\n\n");
 			break;
+		}
 		case 2:
 			writePhoneBook(phoneBook, currentIndex);
 			printf("\n");
 			break;
 		case 3:
 		{
-			char name[NUMBER_LENGTH];
+			char name[NAME_LENGTH];
 			printf("Введите имя: ");
 			scanf("%s", &name);
 			int index = phoneNumberSearch(phoneBook, currentIndex, name);
