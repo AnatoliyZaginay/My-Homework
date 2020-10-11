@@ -94,8 +94,90 @@ void operations()
 	printf("5 - сохранить текущие данные в файл\n\n");
 }
 
+bool checkContact(struct Contact array[], const int index, const char expectedName[NAME_LENGTH], const char expectedNumber[NUMBER_LENGTH])
+{
+	if (strcmp(array[index].name, expectedName) == 0 && strcmp(array[index].phoneNumber, expectedNumber) == 0)
+	{
+		return true;
+	}
+	return false;
+}
+
+bool testAddContact()
+{
+	struct Contact testPhoneBook[3];
+	int index = 0;
+	addContact(testPhoneBook, &index, "Max", "111");
+	addContact(testPhoneBook, &index, "Mike", "222");
+	addContact(testPhoneBook, &index, "Tim", "333");
+	if (index = 3 && checkContact(testPhoneBook, 0, "Max", "111") && checkContact(testPhoneBook, 1, "Mike", "222") &&
+		checkContact(testPhoneBook, 2, "Tim", "333"))
+	{
+		return true;
+	}
+	return false;
+}
+
+bool testPhoneNumberSearch()
+{
+	struct Contact testPhoneBook[3] = { "Max", "111", "Mike", "222", "Tim", "333" };
+	if (phoneNumberSearch(testPhoneBook, 3, "Tim") == 2 && phoneNumberSearch(testPhoneBook, 3, "Alex") == -1)
+	{
+		return true;
+	}
+	return false;
+}
+
+bool testNameSearch()
+{
+	struct Contact testPhoneBook[3] = { "Max", "111", "Mike", "222", "Tim", "333" };
+	if (nameSearch(testPhoneBook, 3, "333") == 2 && nameSearch(testPhoneBook, 3, "444") == -1)
+	{
+		return true;
+	}
+	return false;
+}
+
+bool testReadFile()
+{
+	struct Contact testPhoneBook[3];
+	int index = 0;
+	readFile(testPhoneBook, "testReadFile.txt", &index);
+	if (index = 3 && checkContact(testPhoneBook, 0, "Max", "111") && checkContact(testPhoneBook, 1, "Mike", "222") &&
+		checkContact(testPhoneBook, 2, "Tim", "333"))
+	{
+		return true;
+	}
+	return false;
+}
+
+bool testSaveFile()
+{
+	struct Contact testPhoneBook[3] = { "Max", "111", "Mike", "222", "Tim", "333" };
+	saveFile(testPhoneBook, "testSaveFile.txt", 3);
+	struct Contact testPhoneBookAfterSave[3];
+	int index = 0;
+	readFile(testPhoneBookAfterSave, "testSaveFile.txt", &index);
+	if (index = 3 && checkContact(testPhoneBookAfterSave, 0, "Max", "111") && checkContact(testPhoneBookAfterSave, 1, "Mike", "222") &&
+		checkContact(testPhoneBookAfterSave, 2, "Tim", "333"))
+	{
+		return true;
+	}
+	return false;
+}
+
+bool testsResult()
+{
+	return testAddContact() && testPhoneNumberSearch() && testNameSearch() && testReadFile() && testSaveFile();
+}
+
 void main()
 {
+	if (!testsResult())
+	{
+		printf("Tests failed");
+		return;
+	}
 	setlocale(LC_ALL, "Rus");
 	int currentIndex = 0;
 	struct Contact phoneBook[PHONEBOOK_LENGTH];
