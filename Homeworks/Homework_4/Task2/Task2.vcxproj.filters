@@ -29,10 +29,10 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="array.txt">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Файлы ресурсов</Filter>
     </Text>
     <Text Include="testArray.txt">
-      <Filter>Исходные файлы</Filter>
+      <Filter>Файлы ресурсов</Filter>
     </Text>
   </ItemGroup>
 </Project>
