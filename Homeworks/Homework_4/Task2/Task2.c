@@ -4,15 +4,33 @@
 #include <stdbool.h>
 #include <locale.h>
 
-#define ARRAY_SIZE 25
 #define FILE_NAME "array.txt"
+
+int numberOfElementsInFile(const char* fileName)
+{
+	FILE* file = fopen(fileName, "r");
+	if (file == NULL)
+	{
+		printf("File not found\n");
+		return 0;
+	}
+	int arraySize = 0;
+	while (!feof(file))
+	{
+		++arraySize;
+		int element = 0;
+		fscanf(file, "%i", &element);
+	}
+	fclose(file);
+	return arraySize;
+}
 
 void arrayInitializationFromFile(int array[], int size, const char* fileName)
 {
 	FILE* file = fopen(fileName, "r");
 	if (file == NULL)
 	{
-		printf("File not found");
+		printf("File not found\n");
 		return;
 	}
 	for (int i = 0; i < size; ++i)
@@ -90,7 +108,7 @@ int frequentElementOfArray(int array[], int size)
 	return frequentElement;
 }
 
-bool testQuickSortUnsorted()
+bool testQuickSortUnsorted(void)
 {
 	int array[10000];
 	arrayInitialization(array, 10000, 5000);
@@ -98,7 +116,7 @@ bool testQuickSortUnsorted()
 	return isSorted(array, 10000);
 }
 
-bool testQuickSortSorted()
+bool testQuickSortSorted(void)
 {
 	int array[10000];
 	arrayInitializationSorted(array, 10000, 5000);
@@ -106,7 +124,7 @@ bool testQuickSortSorted()
 	return isSorted(array, 10000);
 }
 
-bool testQuickSortSameElements()
+bool testQuickSortSameElements(void)
 {
 	int array[10000];
 	arrayInitializationWithElement(array, 10000, 5);
@@ -114,14 +132,14 @@ bool testQuickSortSameElements()
 	return isSorted(array, 10000);
 }
 
-bool testQuickSortOneElement()
+bool testQuickSortOneElement(void)
 {
 	int array[1] = { 0 };
 	sort(array, 0, 0);
 	return isSorted(array, 1);
 }
 
-bool testFrequentElementTwoFrequentElements()
+bool testFrequentElementTwoFrequentElements(void)
 {
 	int array[10000];
 	arrayInitializationSorted(array, 10000, 5000);
@@ -130,7 +148,7 @@ bool testFrequentElementTwoFrequentElements()
 	return frequentElementOfArray(array, 10000) == 0;
 }
 
-bool testFrequentElementLastElement()
+bool testFrequentElementLastElement(void)
 {
 	int array[10000];
 	arrayInitializationSorted(array, 10000, 5000);
@@ -138,14 +156,14 @@ bool testFrequentElementLastElement()
 	return frequentElementOfArray(array, 10000) == 4999;
 }
 
-bool testFrequentElementFirstElement()
+bool testFrequentElementFirstElement(void)
 {
 	int array[10000];
 	arrayInitializationSorted(array, 10000, 5000);
 	return frequentElementOfArray(array, 10000) == -5000;
 }
 
-bool testArrayInitializationFromFile()
+bool testArrayInitializationFromFile(void)
 {
 	int array[25] = { 0 };
 	arrayInitializationFromFile(array, 25, "testArray.txt");
@@ -159,15 +177,20 @@ bool testArrayInitializationFromFile()
 	return true;
 }
 
-bool testsResult()
+bool testNumberOfElementsInFile(void)
+{
+	return numberOfElementsInFile("testArray.txt") == 25;
+}
+
+bool testsResult(void)
 {
 	return testQuickSortUnsorted() && testQuickSortSorted() && testQuickSortSameElements() &&
 		testQuickSortOneElement() && testFrequentElementTwoFrequentElements() &&
 		testFrequentElementLastElement() && testFrequentElementFirstElement() &&
-		testArrayInitializationFromFile();
+		testArrayInitializationFromFile() && testNumberOfElementsInFile();
 }
 
-void main()
+void main(void)
 {
 	if (!testsResult())
 	{
@@ -175,10 +198,12 @@ void main()
 		return;
 	}
 	setlocale(LC_ALL, "Rus");
-	int array[ARRAY_SIZE] = { 0 };
-	arrayInitializationFromFile(array, ARRAY_SIZE, FILE_NAME);
+	const int arraySize = numberOfElementsInFile(FILE_NAME);
+	int* array = (int*)malloc(sizeof(int) * arraySize);
+	arrayInitializationFromFile(array, arraySize, FILE_NAME);
 	printf("Массив, полученный из файла: ");
-	arrayPrint(array, ARRAY_SIZE);
-	sort(array, 0, ARRAY_SIZE - 1);
-	printf("\n\nНаиболее часто встречающийся элемент в массиве: %i", frequentElementOfArray(array, ARRAY_SIZE));
+	arrayPrint(array, arraySize);
+	sort(array, 0, arraySize - 1);
+	printf("\n\nНаиболее часто встречающийся элемент в массиве: %i", frequentElementOfArray(array, arraySize));
+	free(array);
 }

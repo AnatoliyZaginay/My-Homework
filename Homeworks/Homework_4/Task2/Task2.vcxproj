@@ -147,6 +147,10 @@
   <ItemGroup>
     <ClInclude Include="arraySort.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="array.txt" />
+    <Text Include="testArray.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
