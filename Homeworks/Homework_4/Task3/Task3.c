@@ -1,89 +1,12 @@
-﻿#include <stdio.h>
+﻿#include "phoneBookOperations.h"
+#include "phoneBookOperationsTests.h"
+#include <stdio.h>
 #include <locale.h>
 #include <stdbool.h>
 
-#define NAME_LENGTH 30
-#define NUMBER_LENGTH 30
-#define PHONEBOOK_LENGTH 100
 #define FILE_NAME "phoneBook.txt"
 
-struct Contact
-{
-	char name[NAME_LENGTH];
-	char phoneNumber[NUMBER_LENGTH];
-};
-
-void readFile(struct Contact array[], const char fileName[], int* currentIndex)
-{
-	FILE* file = fopen(fileName, "r");
-	if (file == NULL)
-	{
-		printf("Файл \"%s\" не найден\n\n", FILE_NAME);
-		return;
-	}
-	while (!feof(file) && *currentIndex < PHONEBOOK_LENGTH)
-	{
-		fscanf(file, "%s %s\n", &array[*currentIndex].name, &array[*currentIndex].phoneNumber);
-		++*currentIndex;
-	}
-	fclose(file);
-}
-
-void saveFile(struct Contact array[], const char fileName[], const int lasIndex)
-{
-	FILE* file = fopen(fileName, "w");
-	if (file == NULL)
-	{
-		printf("File not found");
-		return;
-	}
-	for (int i = 0; i < lasIndex; ++i)
-	{
-		fprintf(file, "%s %s\n", array[i].name, array[i].phoneNumber);
-	}
-	fclose(file);
-}
-
-void addContact(struct Contact array[], int* currentIndex, const char name[NAME_LENGTH], const char number[NUMBER_LENGTH])
-{
-	strcpy(array[*currentIndex].name, name);
-	strcpy(array[*currentIndex].phoneNumber, number);
-	++*currentIndex;
-}
-
-void writePhoneBook(struct Contact array[], const int lastIndex)
-{
-	for (int i = 0; i < lastIndex; ++i)
-	{
-		printf("%s %s\n", array[i].name, array[i].phoneNumber);
-	}
-}
-
-int nameSearch(struct Contact array[], const int lastIndex, const char number[NUMBER_LENGTH])
-{
-	for (int i = 0; i < lastIndex; ++i)
-	{
-		if (strcmp(number, array[i].phoneNumber) == 0)
-		{
-			return i;
-		}
-	}
-	return -1;
-}
-
-int phoneNumberSearch(struct Contact array[], const int lastIndex, const char name[NAME_LENGTH])
-{
-	for (int i = 0; i < lastIndex; ++i)
-	{
-		if (strcmp(name, array[i].name) == 0)
-		{
-			return i;
-		}
-	}
-	return -1;
-}
-
-void operations()
+void operations(void)
 {
 	printf("Операции:\n");
 	printf("0 - выйти\n");
@@ -94,84 +17,12 @@ void operations()
 	printf("5 - сохранить текущие данные в файл\n\n");
 }
 
-bool checkContact(struct Contact array[], const int index, const char expectedName[NAME_LENGTH], const char expectedNumber[NUMBER_LENGTH])
-{
-	if (strcmp(array[index].name, expectedName) == 0 && strcmp(array[index].phoneNumber, expectedNumber) == 0)
-	{
-		return true;
-	}
-	return false;
-}
-
-bool testAddContact()
-{
-	struct Contact testPhoneBook[3];
-	int index = 0;
-	addContact(testPhoneBook, &index, "Max", "111");
-	addContact(testPhoneBook, &index, "Mike", "222");
-	addContact(testPhoneBook, &index, "Tim", "333");
-	if (index = 3 && checkContact(testPhoneBook, 0, "Max", "111") && checkContact(testPhoneBook, 1, "Mike", "222") &&
-		checkContact(testPhoneBook, 2, "Tim", "333"))
-	{
-		return true;
-	}
-	return false;
-}
-
-bool testPhoneNumberSearch()
-{
-	struct Contact testPhoneBook[3] = { "Max", "111", "Mike", "222", "Tim", "333" };
-	if (phoneNumberSearch(testPhoneBook, 3, "Tim") == 2 && phoneNumberSearch(testPhoneBook, 3, "Alex") == -1)
-	{
-		return true;
-	}
-	return false;
-}
-
-bool testNameSearch()
-{
-	struct Contact testPhoneBook[3] = { "Max", "111", "Mike", "222", "Tim", "333" };
-	if (nameSearch(testPhoneBook, 3, "333") == 2 && nameSearch(testPhoneBook, 3, "444") == -1)
-	{
-		return true;
-	}
-	return false;
-}
-
-bool testReadFile()
-{
-	struct Contact testPhoneBook[3];
-	int index = 0;
-	readFile(testPhoneBook, "testReadFile.txt", &index);
-	if (index = 3 && checkContact(testPhoneBook, 0, "Max", "111") && checkContact(testPhoneBook, 1, "Mike", "222") &&
-		checkContact(testPhoneBook, 2, "Tim", "333"))
-	{
-		return true;
-	}
-	return false;
-}
-
-bool testSaveFile()
-{
-	struct Contact testPhoneBook[3] = { "Max", "111", "Mike", "222", "Tim", "333" };
-	saveFile(testPhoneBook, "testSaveFile.txt", 3);
-	struct Contact testPhoneBookAfterSave[3];
-	int index = 0;
-	readFile(testPhoneBookAfterSave, "testSaveFile.txt", &index);
-	if (index = 3 && checkContact(testPhoneBookAfterSave, 0, "Max", "111") && checkContact(testPhoneBookAfterSave, 1, "Mike", "222") &&
-		checkContact(testPhoneBookAfterSave, 2, "Tim", "333"))
-	{
-		return true;
-	}
-	return false;
-}
-
-bool testsResult()
+bool testsResult(void)
 {
 	return testAddContact() && testPhoneNumberSearch() && testNameSearch() && testReadFile() && testSaveFile();
 }
 
-void main()
+void main(void)
 {
 	if (!testsResult())
 	{
@@ -198,7 +49,7 @@ void main()
 			char phoneNumber[NUMBER_LENGTH];
 			printf("Введите имя: ");
 			scanf("%s", &name);
-			printf("Введите номер телефон: ");
+			printf("Введите номер телефона: ");
 			scanf("%s", &phoneNumber);
 			addContact(phoneBook, &currentIndex, name, phoneNumber);
 			printf("Контакт сохранен\n\n");

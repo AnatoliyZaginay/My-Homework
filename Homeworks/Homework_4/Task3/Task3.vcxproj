@@ -139,7 +139,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="phoneBookOperations.c" />
+    <ClCompile Include="phoneBookOperationsTests.c" />
     <ClCompile Include="Task3.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="phoneBook.txt" />
+    <Text Include="testReadFile.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="phoneBookOperations.h" />
+    <ClInclude Include="phoneBookOperationsTests.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
