@@ -29,22 +29,13 @@ void binarySum(int firstBinaryArray[], int secondBinaryArray[], int resultBinary
 	}
 }
 
-void binaryArrayNegativeNumberTransferHelp(int binaryArray[], const int size)
-{
-	binaryNumberInversion(binaryArray, size);
-	int binaryOne[ARRAY_SIZE] = { 1 };
-	int binaryArrayResult[ARRAY_SIZE] = { 0 };
-	binarySum(binaryArray, binaryOne, binaryArrayResult, size);
-	copyArray(binaryArray, binaryArrayResult, size);
-}
-
 int fromBinaryToDecimal(int binaryArray[], const int size)
 {
 	int decimalNumber = 0;
 	bool isNegative = binaryArray[size - 1] == 1;
 	if (isNegative)
 	{
-		binaryArrayNegativeNumberTransferHelp(binaryArray, size);
+		binaryNumberInversion(binaryArray, size);
 	}
 	int power = 1;
 	for (int i = 0; i < size; ++i)
@@ -54,7 +45,7 @@ int fromBinaryToDecimal(int binaryArray[], const int size)
 	}
 	if (isNegative)
 	{
-		decimalNumber = -decimalNumber;
+		decimalNumber = -decimalNumber - 1;
 	}
 	return decimalNumber;
 }
