@@ -31,20 +31,11 @@ void binarySum(int firstBinaryArray[], int secondBinaryArray[], int resultBinary
 int fromBinaryToDecimal(int binaryArray[], const int size)
 {
 	int decimalNumber = 0;
-	bool isNegative = binaryArray[size - 1] == 1;
-	if (isNegative)
-	{
-		binaryNumberInversion(binaryArray, size);
-	}
 	int power = 1;
 	for (int i = 0; i < size; ++i)
 	{
 		decimalNumber += binaryArray[i] * power;
 		power *= 2;
-	}
-	if (isNegative)
-	{
-		decimalNumber = -decimalNumber - 1;
 	}
 	return decimalNumber;
 }
