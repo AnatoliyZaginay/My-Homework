@@ -1,6 +1,5 @@
 #include "binaryArrayOperations.h"
 
-#include "arrayOperations.h"
 #include <stdio.h>
 #include <stdbool.h>
 
