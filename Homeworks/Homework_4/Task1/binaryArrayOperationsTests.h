@@ -2,11 +2,5 @@
 
 #include <stdbool.h>
 
-//“ест на перевод числа из дес€тичного представлени€ в двоичное
-bool testConvertToBinary(void);
-
-//“ест на сумму двух двоичных чисел
-bool testBinarySum(void);
-
-//“ест на перевод числа из двоичного представлени€ в дес€тичное
-bool testFromBinaryToDecimal(void);
+//ѕровер€ет, все ли тесты прошли проверку
+bool testsResult(void);

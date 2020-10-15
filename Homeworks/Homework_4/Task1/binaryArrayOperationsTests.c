@@ -2,8 +2,6 @@
 
 #include "binaryArrayOperations.h"
 #include "arrayOperations.h"
-#include <stdio.h>
-#include <stdbool.h>
 
 bool testConvertToBinary(void)
 {
@@ -58,4 +56,9 @@ bool testFromBinaryToDecimal(void)
 	int secondBinaryArray[ARRAY_SIZE] = { 0 };
 	convertToBinary(-31, secondBinaryArray, ARRAY_SIZE);
 	return fromBinaryToDecimal(secondBinaryArray, ARRAY_SIZE) == -31;
+}
+
+bool testsResult(void)
+{
+	return testConvertToBinary() && testBinarySum() && testFromBinaryToDecimal();
 }

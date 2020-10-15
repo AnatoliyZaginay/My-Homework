@@ -7,14 +7,7 @@ void binaryNumberInversion(int binaryArray[], const int size)
 {
 	for (int i = 0; i < size; ++i)
 	{
-		if (binaryArray[i] == 1)
-		{
-			binaryArray[i] = 0;
-		}
-		else
-		{
-			binaryArray[i] = 1;
-		}
+		binaryArray[i] = !binaryArray[i];
 	}
 }
 

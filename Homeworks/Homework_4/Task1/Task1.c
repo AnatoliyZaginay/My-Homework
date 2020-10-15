@@ -2,12 +2,6 @@
 #include "binaryArrayOperationsTests.h"
 #include <stdio.h>
 #include <locale.h>
-#include <stdbool.h>
-
-bool testsResult(void)
-{
-	return testConvertToBinary() && testBinarySum() && testFromBinaryToDecimal();
-}
 
 void main(void)
 {
