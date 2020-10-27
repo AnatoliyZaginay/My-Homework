@@ -40,6 +40,15 @@ void push(struct Stack* stack, int value)
 	stack->head = newElement;
 }
 
+int stackTop(struct Stack* stack)
+{
+	if (stack == NULL || isEmpty(stack))
+	{
+		return 0;
+	}
+	return stack->head->value;
+}
+
 int pop(struct Stack* stack)
 {
 	if (stack == NULL || isEmpty(stack))
