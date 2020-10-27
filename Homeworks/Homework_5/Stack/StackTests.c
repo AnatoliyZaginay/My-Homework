@@ -38,8 +38,19 @@ bool popTest(void)
 	return result;
 }
 
+bool stackTopTest(void)
+{
+	struct Stack* stack = createStack();
+	push(stack, 1);
+	push(stack, 2);
+	bool result = (stackTop(stack) == 2 && pop(stack) == 2 && stackTop(stack) == 1 &&
+		pop(stack) == 1 && isEmpty(stack) && stackTop(stack) == 0);
+	deleteStack(&stack);
+	return result;
+}
+
 bool stackTests(void)
 {
 	return deleteStackTest() && isEmptyTest() &&
-		pushTest() && popTest();
+		pushTest() && popTest() && stackTopTest();
 }
