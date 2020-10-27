@@ -41,5 +41,8 @@ void main(void)
 	case ERROR_CODE_DIVISION_BY_ZERO:
 		printf("На ноль делить нельзя");
 		break;
+	case ERROR_CODE_STACK_NOT_CREATED:
+		printf("Ошибка создания стека");
+		break;
 	}
 }

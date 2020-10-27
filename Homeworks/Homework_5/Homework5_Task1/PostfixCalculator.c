@@ -9,6 +9,10 @@
 int postfixCalculator(const char line[], int* result)
 {
 	struct Stack* stack = createStack();
+	if (stack == NULL)
+	{
+		return ERROR_CODE_STACK_NOT_CREATED;
+	}
 	for (int i = 0; i < strlen(line); ++i)
 	{
 		if (isdigit(line[i]))
