@@ -142,6 +142,7 @@
     <ClCompile Include="..\Stack\Stack.c" />
     <ClCompile Include="..\Stack\StackTests.c" />
     <ClCompile Include="FromInfixToPostfix.c" />
+    <ClCompile Include="FromInfixToPostfixTests.c" />
     <ClCompile Include="Homework5_Task3.c" />
     <ClCompile Include="StringReading.c" />
   </ItemGroup>
@@ -149,6 +150,7 @@
     <ClInclude Include="..\Stack\Stack.h" />
     <ClInclude Include="..\Stack\StackTests.h" />
     <ClInclude Include="FromInfixToPostfix.h" />
+    <ClInclude Include="FromInfixToPostfixTests.h" />
     <ClInclude Include="StringReading.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

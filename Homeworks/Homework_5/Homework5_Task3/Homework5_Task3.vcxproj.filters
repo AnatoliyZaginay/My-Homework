@@ -30,6 +30,9 @@
     <ClCompile Include="FromInfixToPostfix.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="FromInfixToPostfixTests.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StringReading.h">
@@ -42,6 +45,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="FromInfixToPostfix.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="FromInfixToPostfixTests.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

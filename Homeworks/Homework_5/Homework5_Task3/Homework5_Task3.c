@@ -1,5 +1,7 @@
 ﻿#include "StringReading.h"
 #include "FromInfixToPostfix.h"
+#include "FromInfixToPostfixTests.h"
+#include "../Stack/StackTests.h"
 #include <stdio.h>
 #include <locale.h>
 #include <string.h>
@@ -8,6 +10,11 @@
 
 void main(void)
 {
+	if (!stackTests() || !fromInfixToPostfixTest())
+	{
+		printf("Tests failed");
+		return;
+	}
 	setlocale(LC_ALL, "Rus");
 	printf("Введите арифметическое выражение в инфиксной форме: ");
 	char string[STRING_LENGHT];
