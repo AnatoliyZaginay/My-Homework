@@ -1,8 +1,9 @@
-#include "postfixCalculator.h"
+#include "PostfixCalculator.h"
 
 #include "../Stack/Stack.h"
 #include <string.h>
 #include <ctype.h>
+#include <stdlib.h>
 
 #define DIGIT_CODE 48
 

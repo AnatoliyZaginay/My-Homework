@@ -1,5 +1,5 @@
 ﻿#include "StringReading.h"
-#include "postfixCalculator.h"
+#include "PostfixCalculator.h"
 #include "PostfixCalculatorTests.h"
 #include "../Stack/StackTests.h"
 #include <stdio.h>
