@@ -2,6 +2,7 @@
 
 #include "../Stack/Stack.h"
 #include <string.h>
+#include <stdio.h>
 
 #define ROUND_BRACKET_CODE (int)'('
 #define SQUARE_BRACKET_CODE (int)'['
@@ -10,6 +11,11 @@
 bool isBalanced(const char bracketSequence[])
 {
 	struct Stack* stack = createStack();
+	if (stack == NULL)
+	{
+		printf("Ошибка создания стека\n");
+		return false;
+	}
 	for (int i = 0; i < strlen(bracketSequence); ++i)
 	{
 		if (bracketSequence[i] == '(' || bracketSequence[i] == '[' || bracketSequence[i] == '{')
