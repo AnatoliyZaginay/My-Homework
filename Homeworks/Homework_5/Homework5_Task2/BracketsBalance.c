@@ -2,6 +2,7 @@
 
 #include "../Stack/Stack.h"
 #include <string.h>
+#include <stdlib.h>
 #include <stdio.h>
 
 #define ROUND_BRACKET_CODE (int)'('
