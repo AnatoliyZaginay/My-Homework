@@ -16,7 +16,10 @@ struct Stack
 struct Stack* createStack(void)
 {
 	struct Stack* newStack = malloc(sizeof(struct Stack));
-	newStack->head = NULL;
+	if (newStack != NULL)
+	{
+		newStack->head = NULL;
+	}
 	return newStack;
 }
 
