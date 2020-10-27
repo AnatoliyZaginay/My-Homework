@@ -1,0 +1,12 @@
+;so interesting comment
+useless code;another interesting comment; amazing comment!
+useless code
+useless code
+useless code
+useless code;
+
+;no code just comments
+;;;;;;;;;;;;
+useless code ;COMMENT!
+;;;;;;;;;;;;
+useless code
