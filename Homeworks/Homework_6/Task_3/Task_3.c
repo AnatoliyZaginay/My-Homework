@@ -1,6 +1,8 @@
 ﻿#include "List.h"
 #include "ReadFromFile.h"
 #include "MergeSort.h"
+#include "ListAndMergeSortTests.h"
+#include "ReadFromFileTest.h"
 #include <stdio.h>
 #include <stdbool.h>
 #include <locale.h>
@@ -9,6 +11,11 @@
 
 void main(void)
 {
+	if (!listAndMergeSortTests() || !readFromFileTest())
+	{
+		printf("Tests failed");
+		return;
+	}
 	setlocale(LC_ALL, "Rus");
 	struct List* list = createList();
 	if (!readFromFile(list, FILE_NAME))

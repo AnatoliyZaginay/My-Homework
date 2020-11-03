@@ -143,6 +143,7 @@
     <ClCompile Include="ListAndMergeSortTests.c" />
     <ClCompile Include="MergeSort.c" />
     <ClCompile Include="ReadFromFile.c" />
+    <ClCompile Include="ReadFromFileTest.c" />
     <ClCompile Include="Task_3.c" />
   </ItemGroup>
   <ItemGroup>
@@ -150,6 +151,7 @@
     <ClInclude Include="ListAndMergeSortTests.h" />
     <ClInclude Include="MergeSort.h" />
     <ClInclude Include="ReadFromFile.h" />
+    <ClInclude Include="ReadFromFileTest.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="phoneBook.txt" />

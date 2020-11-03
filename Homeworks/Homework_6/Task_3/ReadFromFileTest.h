@@ -2,4 +2,4 @@
 
 #include <stdbool.h>
 
-bool listAndMergeSortTests(void);
+bool readFromFileTest(void);
