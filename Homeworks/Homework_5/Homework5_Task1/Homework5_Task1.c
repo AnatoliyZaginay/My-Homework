@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <locale.h>
 
-#define STRING_LENGHT 100
+#define STRING_LENGTH 100
 
 void main(void)
 {
@@ -15,13 +15,13 @@ void main(void)
 		return;
 	}
 	setlocale(LC_ALL, "Rus");
-	char string[STRING_LENGHT];
-	for (int i = 0; i < STRING_LENGHT; ++i)
+	char string[STRING_LENGTH];
+	for (int i = 0; i < STRING_LENGTH; ++i)
 	{
 		string[i] = '\0';
 	}
 	printf("Введите арифметическое выражение в постфиксном виде: ");
-	stringReading(string, STRING_LENGHT);
+	stringReading(string, STRING_LENGTH);
 	int result = 0;
 	const int postfixCalculatorReturnCode = postfixCalculator(string, &result);
 	switch (postfixCalculatorReturnCode)

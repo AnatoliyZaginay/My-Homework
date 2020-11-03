@@ -2,17 +2,17 @@
 
 #include <stdio.h>
 
-void stringReading(char line[], int const lenght)
+void stringReading(char line[], int const length)
 {
 	char symbol = '\0';
 	scanf("%c", &symbol);
-	int currentLenght = 0;
-	while (symbol != '\n' && currentLenght < lenght)
+	int currentLength = 0;
+	while (symbol != '\n' && currentLength < length)
 	{
 		if (symbol != ' ')
 		{
-			line[currentLenght] = symbol;
-			++currentLenght;
+			line[currentLength] = symbol;
+			++currentLength;
 		}
 		scanf("%c", &symbol);
 	}
