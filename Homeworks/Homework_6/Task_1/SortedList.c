@@ -45,7 +45,6 @@ void add(struct List* list, int value)
 	}
 	newElement->next = currentElement->next;
 	currentElement->next = newElement;
-	return;
 }
 
 bool delete(struct List* list, int value)
@@ -96,5 +95,4 @@ void printList(struct List* list)
 		printf("%i ", currentElement->value);
 		currentElement = currentElement->next;
 	}
-	return;
 }
