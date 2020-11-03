@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <locale.h>
 
-#define LINE_LENGHT 100
+#define LINE_LENGTH 100
 
 void main(void)
 {
@@ -15,7 +15,7 @@ void main(void)
 	}
 	setlocale(LC_ALL, "Rus");
 	printf("Введите скобочную последовательность: ");
-	char string[LINE_LENGHT];
+	char string[LINE_LENGTH];
 	scanf("%s", &string);
 	if (isBalanced(string))
 	{
