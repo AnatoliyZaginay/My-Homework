@@ -4,6 +4,7 @@
 
 struct Dictionary;
 
+// Создаёт словарь
 struct Dictionary* createDictionary(void);
 
 // Добавляет в словарь значение по ключу
@@ -15,7 +16,7 @@ bool isEmpty(struct Dictionary* dictionary);
 // Возвращает значение элемента словаря по его ключу
 char* getValue(struct Dictionary* dictionary, int key);
 
-// Проверяет, есть ли словаре ключ
+// Проверяет, есть ли словаре полученный ключ
 bool checkKey(struct Dictionary* dictionary, int key);
 
 // Удаляет элемент из словаря по его ключу
