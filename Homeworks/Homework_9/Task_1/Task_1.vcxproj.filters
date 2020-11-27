@@ -27,9 +27,21 @@
     <ClCompile Include="HashTable.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="ListTests.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="HashTableTests.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="ReadFromFileTest.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="text.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+    <Text Include="test.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>
   </ItemGroup>
@@ -41,6 +53,15 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="HashTable.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="ListTests.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="HashTableTests.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="ReadFromFileTest.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

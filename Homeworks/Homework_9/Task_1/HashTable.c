@@ -3,7 +3,7 @@
 #include "List.h"
 #include <stdlib.h>
 
-#define DEFAULT_SIZE 10;
+#define DEFAULT_SIZE 4;
 
 struct Bucket
 {
@@ -54,7 +54,7 @@ struct HashTable* createHashTable(void)
 
 int hashFunction(char* value, int hashSize)
 {
-	int result = 0;
+	unsigned int result = 0;
 	for (int i = 0; value[i] != '\0'; ++i)
 	{
 		result = (result + value[i]) % hashSize;
@@ -64,11 +64,7 @@ int hashFunction(char* value, int hashSize)
 
 void addElementToHashTable(struct HashTable* hashTable, char* value, const int count)
 {
-	int hash = hashFunction(value, hashTable->size);
-	if (hash < 0)
-	{
-		return;
-	}
+	const unsigned int hash = hashFunction(value, hashTable->size);
 	if (checkValue(hashTable->buckets[hash]->list, value))
 	{
 		updateCount(hashTable->buckets[hash]->list, value);
@@ -78,6 +74,7 @@ void addElementToHashTable(struct HashTable* hashTable, char* value, const int c
 		addElementToList(hashTable->buckets[hash]->list, value, count);
 		++(hashTable->buckets[hash]->listLength);
 		++(hashTable->countOfElements);
+		hashTable->fillFactor = (float)hashTable->countOfElements / hashTable->size;
 	}
 }
 
@@ -124,7 +121,6 @@ void updateHashTableSize(struct HashTable* hashTable)
 void add(struct HashTable* hashTable, char* value)
 {
 	addElementToHashTable(hashTable, value, 1);
-	hashTable->fillFactor = (float)hashTable->countOfElements / hashTable->size;
 	if (hashTable->fillFactor > 1)
 	{
 		updateHashTableSize(hashTable);
@@ -185,4 +181,28 @@ float getAverageListLength(struct HashTable* hashTable)
 	}
 	const float averageListLength = (float)sumOfLengths / hashTable->size;
 	return averageListLength;
+}
+
+bool isHashTableEmpty(struct HashTable* hashTable)
+{
+	for (int i = 0; i < hashTable->size; ++i)
+	{
+		if (hashTable->buckets[i]->listLength > 0 && !isEmpty(hashTable->buckets[i]->list))
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+bool checkValueInHashTable(struct HashTable* hashTable, char* value)
+{
+	for (int i = 0; i < hashTable->size; ++i)
+	{
+		if (checkValue(hashTable->buckets[i]->list, value))
+		{
+			return true;
+		}
+	}
+	return false;
 }

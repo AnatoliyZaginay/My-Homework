@@ -140,17 +140,24 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="HashTable.c" />
+    <ClCompile Include="HashTableTests.c" />
     <ClCompile Include="List.c" />
+    <ClCompile Include="ListTests.c" />
     <ClCompile Include="ReadFromFile.c" />
+    <ClCompile Include="ReadFromFileTest.c" />
     <ClCompile Include="Task_1.c" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="test.txt" />
     <Text Include="text.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HashTable.h" />
+    <ClInclude Include="HashTableTests.h" />
     <ClInclude Include="List.h" />
+    <ClInclude Include="ListTests.h" />
     <ClInclude Include="ReadFromFile.h" />
+    <ClInclude Include="ReadFromFileTest.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
