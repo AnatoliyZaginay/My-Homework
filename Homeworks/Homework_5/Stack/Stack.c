@@ -25,11 +25,15 @@ struct Stack* createStack(void)
 
 bool isEmpty(struct Stack* stack)
 {
-	return stack->head == NULL;
+	return stack == NULL || stack->head == NULL;
 }
 
 void push(struct Stack* stack, int value)
 {
+	if (stack == NULL)
+	{
+		return;
+	}
 	struct StackElement* newElement = malloc(sizeof(struct StackElement));
 	if (newElement == NULL)
 	{
@@ -64,6 +68,10 @@ int pop(struct Stack* stack)
 
 void deleteStack(struct Stack** stack)
 {
+	if (*stack == NULL)
+	{
+		return;
+	}
 	while (!isEmpty(*stack))
 	{
 		pop(*stack);
