@@ -5,10 +5,6 @@
 #include <string.h>
 #include <ctype.h>
 
-#define MULTIPLICATION_CODE (int)'*'
-#define DIVISION_CODE (int)'/'
-#define OPEN_BRACKET_CODE (int)'('
-
 int fromInfixToPostfix(char line[], char resultLine[])
 {
 	struct Stack* stack = createStack();
@@ -30,28 +26,28 @@ int fromInfixToPostfix(char line[], char resultLine[])
 			{
 			case '+':
 			case '-':
-				while (!isEmpty(stack) && stackTop(stack) != OPEN_BRACKET_CODE)
+				while (!isEmpty(stack) && stackTop(stack) != '(')
 				{
 					resultLine[currentIndex] = pop(stack);
 					++currentIndex;
 				}
-				push(stack, (int)line[i]);
+				push(stack, line[i]);
 				break;
 			case '*':
 			case '/':
-				if (!isEmpty(stack) && stackTop(stack) != OPEN_BRACKET_CODE && 
-					(stackTop(stack) == MULTIPLICATION_CODE || stackTop(stack) == DIVISION_CODE))
+				if (!isEmpty(stack) && stackTop(stack) != '(' &&
+					(stackTop(stack) == '*' || stackTop(stack) == '/'))
 				{
 					resultLine[currentIndex] = pop(stack);
 					++currentIndex;
 				}
-				push(stack, (int)line[i]);
+				push(stack, line[i]);
 				break;
 			case '(':
-				push(stack, (int)line[i]);
+				push(stack, line[i]);
 				break;
 			case ')':
-				while (stackTop(stack) != OPEN_BRACKET_CODE)
+				while (stackTop(stack) != '(')
 				{
 					if (isEmpty(stack))
 					{
@@ -68,7 +64,7 @@ int fromInfixToPostfix(char line[], char resultLine[])
 	}
 	while (!isEmpty(stack))
 	{
-		if (stackTop(stack) == OPEN_BRACKET_CODE)
+		if (stackTop(stack) == '(')
 		{
 			deleteStack(&stack);
 			return ERROR_CODE_NOT_FOUND_BRACKET;

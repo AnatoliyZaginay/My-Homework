@@ -6,7 +6,7 @@
 #include <locale.h>
 #include <string.h>
 
-#define STRING_LENGHT 100
+#define STRING_LENGTH 100
 
 void main(void)
 {
@@ -17,15 +17,10 @@ void main(void)
 	}
 	setlocale(LC_ALL, "Rus");
 	printf("Введите арифметическое выражение в инфиксной форме: ");
-	char string[STRING_LENGHT];
-	char result[STRING_LENGHT];
-	for (int i = 0; i < STRING_LENGHT; ++i)
-	{
-		string[i] = '\0';
-		result[i] = '\0';
-	}
-	stringReading(string, STRING_LENGHT);
-	int fromInfixToPostfixReturnCode = fromInfixToPostfix(string, result);
+	char string[STRING_LENGTH] = "";
+	char result[STRING_LENGTH] = "";
+	stringReading(string, STRING_LENGTH);
+	const int fromInfixToPostfixReturnCode = fromInfixToPostfix(string, result);
 	switch (fromInfixToPostfixReturnCode)
 	{
 	case CORRECT_WORK_CODE:
