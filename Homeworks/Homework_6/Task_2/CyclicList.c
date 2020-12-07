@@ -2,6 +2,18 @@
 
 #include <stdlib.h>
 
+struct ListElement
+{
+	int value;
+	struct ListElement* next;
+};
+
+struct List
+{
+	struct ListElement* head;
+	struct ListElement* tail;
+};
+
 struct List* createList(void)
 {
 	struct List* newList = malloc(sizeof(struct List));
@@ -36,45 +48,37 @@ void add(struct List* list, int value)
 	list->head = newElement;
 }
 
-void deleteNextElement(struct ListElement* element, struct List* list)
+void deleteElementByNumber(struct List* list, const int number)
 {
-	struct ListElement* deletedElement = element->next;
-	element->next = element->next->next;
+	struct ListElement* currentElement = list->head;
+	for (int i = 1; i < number; ++i)
+	{
+		currentElement = currentElement->next;
+	}
+	struct ListElement* deletedElement = currentElement->next;
+	currentElement->next = currentElement->next->next;
+	list->head = currentElement;
+	list->tail = currentElement->next;
 	free(deletedElement);
-	list->head = element;
-	list->tail = element->next;
+}
+
+bool isOnlyOneElementLeft(struct List* list)
+{
+	return list->head == list->tail;
+}
+
+int getValueFromHead(struct List* list)
+{
+	return list->head->value;
 }
 
 void deleteList(struct List** list)
 {
-	while ((*list)->head != (*list)->tail)
+	while (!isOnlyOneElementLeft(*list))
 	{
-		deleteNextElement((*list)->head, *list);
+		deleteElementByNumber((*list), 1);
 	}
 	free((*list)->head);
 	free(*list);
 	*list = NULL;
-}
-
-int lastElement(struct List* list, int period)
-{
-	if (period <= 0 || isEmpty(list))
-	{
-		return -1;
-	}
-	int currentPosition = 0;
-	struct ListElement* currentElement = list->head;
-	while (list->head != list->tail)
-	{
-		++currentPosition;
-		if (currentPosition % period == 0)
-		{
-			deleteNextElement(currentElement, list);
-		}
-		else
-		{
-			currentElement = currentElement->next;
-		}
-	}
-	return currentElement->value;
 }

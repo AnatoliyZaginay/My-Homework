@@ -1,11 +1,13 @@
 ﻿#include "CyclicList.h"
 #include "CyclicListTests.h"
+#include "LastElement.h"
+#include "LastElementTest.h"
 #include <stdio.h>
 #include <locale.h>
 
 void main(void)
 {
-	if (!cyclicListTests())
+	if (!cyclicListTests() || !lastElementTest())
 	{
 		printf("Tests failed");
 		return;

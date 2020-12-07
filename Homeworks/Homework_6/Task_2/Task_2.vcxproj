@@ -141,11 +141,15 @@
   <ItemGroup>
     <ClCompile Include="CyclicList.c" />
     <ClCompile Include="CyclicListTests.c" />
+    <ClCompile Include="LastElement.c" />
+    <ClCompile Include="LastElementTest.c" />
     <ClCompile Include="Task_2.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CyclicList.h" />
     <ClInclude Include="CyclicListTests.h" />
+    <ClInclude Include="LastElement.h" />
+    <ClInclude Include="LastElementTest.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

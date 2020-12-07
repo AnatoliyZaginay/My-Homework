@@ -27,43 +27,42 @@ bool addTest(void)
 	return !result;
 }
 
-bool deleteNextElementTest(void)
+bool isOnlyOneElementLeftTest(void)
 {
 	struct List* list = createList();
 	add(list, 1);
+	bool result = isOnlyOneElementLeft(list);
 	add(list, 2);
-	deleteNextElement(list->tail, list);
-	bool result = list->head->value == 1 && list->tail->value == 1 && list->head == list->tail;
+	result = result && !isOnlyOneElementLeft(list);
 	deleteList(&list);
 	return result;
 }
 
-bool lastElementTest(void)
+bool getValueFromHeadTest(void)
 {
-	struct List* oneElementList = createList();
-	struct List* firstList = createList();
-	struct List* secondList = createList();
-	struct List* thirdList = createList();
-	struct List* emptyList = createList();
-	add(oneElementList, 1);
-	for (int i = 1; i <= 10; ++i)
-	{
-		add(firstList, i);
-		add(secondList, i);
-		add(thirdList, i);
-	}
-	bool result = lastElement(firstList, 0) == -1 && lastElement(firstList, -1) == -1 && lastElement(emptyList, 2) == -1 &&
-		lastElement(firstList, 1) == 10 && lastElement(secondList, 2) == 5 && lastElement(thirdList, 16) == 7 &&
-		lastElement(oneElementList, 2) == 1;
-	deleteList(&oneElementList);
-	deleteList(&firstList);
-	deleteList(&secondList);
-	deleteList(&thirdList);
-	deleteList(&emptyList);
+	struct List* list = createList();
+	add(list, 1);
+	bool result = getValueFromHead(list) == 1;
+	add(list, 2);
+	result = result && getValueFromHead(list) == 2;
+	add(list, 3);
+	result = result && getValueFromHead(list) == 3;
+	deleteList(&list);
+	return result;
+}
+
+bool deleteElementByNumberTest(void)
+{
+	struct List* list = createList();
+	add(list, 1);
+	add(list, 2);
+	deleteElementByNumber(list, 1);
+	bool result = getValueFromHead(list) && isOnlyOneElementLeft(list);
+	deleteList(&list);
 	return result;
 }
 
 bool cyclicListTests(void)
 {
-	return deleteListTest() && isEmptyTest() && addTest() && deleteNextElementTest() && lastElementTest();
+	return deleteListTest() && isEmptyTest() && addTest() && isOnlyOneElementLeftTest() &&getValueFromHeadTest() && deleteElementByNumberTest();
 }
