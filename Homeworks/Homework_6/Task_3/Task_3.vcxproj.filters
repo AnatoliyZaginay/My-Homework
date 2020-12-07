@@ -27,10 +27,13 @@
     <ClCompile Include="ReadFromFile.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="ListAndMergeSortTests.c">
+    <ClCompile Include="ReadFromFileTest.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="ReadFromFileTest.c">
+    <ClCompile Include="ListTests.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="MergeSortTests.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,10 +47,13 @@
     <ClInclude Include="ReadFromFile.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="ListAndMergeSortTests.h">
+    <ClInclude Include="ReadFromFileTest.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="ReadFromFileTest.h">
+    <ClInclude Include="ListTests.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="MergeSortTests.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

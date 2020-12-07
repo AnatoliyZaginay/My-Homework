@@ -4,16 +4,20 @@
 #include <string.h>
 #include <stdbool.h>
 
-void transfer(struct List* list, struct List* transferableList, int number)
+void transfer(struct List* destination, struct List* source, int number)
 {
 	for (int i = 0; i < number; ++i)
 	{
-		if (isEmpty(transferableList))
+		if (isEmpty(source))
 		{
 			return;
 		}
-		add(list, transferableList->tail->name, transferableList->tail->phoneNumber);
-		deleteTail(transferableList);
+		char name[NAME_LENGTH] = "";
+		strcpy(name, getHeadValue(true, source));
+		char phoneNumber[PHONENUMBER_LENGTH] = "";
+		strcpy(phoneNumber, getHeadValue(false, source));
+		add(destination, name, phoneNumber);
+		deleteHead(source);
 	}
 }
 
@@ -25,11 +29,11 @@ struct List* merge(bool sortType, struct List* firstList, struct List* secondLis
 		int change = 0;
 		if (sortType)
 		{
-			change = strcmp(firstList->tail->name, secondList->tail->name);
+			change = strcmp(getHeadValue(true, firstList), getHeadValue(true, secondList));
 		}
 		else
 		{
-			change = strcmp(firstList->tail->phoneNumber, secondList->tail->phoneNumber);
+			change = strcmp(getHeadValue(false, firstList), getHeadValue(false, secondList));
 		}
 		if (change <= 0)
 		{

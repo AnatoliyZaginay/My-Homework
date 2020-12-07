@@ -140,16 +140,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="List.c" />
-    <ClCompile Include="ListAndMergeSortTests.c" />
+    <ClCompile Include="ListTests.c" />
     <ClCompile Include="MergeSort.c" />
+    <ClCompile Include="MergeSortTests.c" />
     <ClCompile Include="ReadFromFile.c" />
     <ClCompile Include="ReadFromFileTest.c" />
     <ClCompile Include="Task_3.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="List.h" />
-    <ClInclude Include="ListAndMergeSortTests.h" />
+    <ClInclude Include="ListTests.h" />
     <ClInclude Include="MergeSort.h" />
+    <ClInclude Include="MergeSortTests.h" />
     <ClInclude Include="ReadFromFile.h" />
     <ClInclude Include="ReadFromFileTest.h" />
   </ItemGroup>

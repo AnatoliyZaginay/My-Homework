@@ -1,7 +1,8 @@
 ﻿#include "List.h"
-#include "ReadFromFile.h"
 #include "MergeSort.h"
-#include "ListAndMergeSortTests.h"
+#include "MergeSortTests.h"
+#include "ListTests.h"
+#include "ReadFromFile.h"
 #include "ReadFromFileTest.h"
 #include <stdio.h>
 #include <stdbool.h>
@@ -11,7 +12,7 @@
 
 void main(void)
 {
-	if (!listAndMergeSortTests() || !readFromFileTest())
+	if (!listTests() || !mergeSortTests() || !readFromFileTest())
 	{
 		printf("Tests failed");
 		return;
