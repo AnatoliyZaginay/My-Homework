@@ -5,9 +5,18 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define ROUND_BRACKET_CODE (int)'('
-#define SQUARE_BRACKET_CODE (int)'['
-#define CURLY_BRACKET_CODE (int)'{'
+char getOpenedBracket(const char bracket)
+{
+	if (bracket == ')')
+	{
+		return '(';
+	}
+	if (bracket == ']')
+	{
+		return '[';
+	}
+	return '{';
+}
 
 bool isBalanced(const char bracketSequence[])
 {
@@ -21,38 +30,14 @@ bool isBalanced(const char bracketSequence[])
 	{
 		if (bracketSequence[i] == '(' || bracketSequence[i] == '[' || bracketSequence[i] == '{')
 		{
-			push(stack, (int)bracketSequence[i]);
+			push(stack, bracketSequence[i]);
 		}
 		if (bracketSequence[i] == ')' || bracketSequence[i] == ']' || bracketSequence[i] == '}')
 		{
-			if (isEmpty(stack))
+			if (isEmpty(stack) || pop(stack) != getOpenedBracket(bracketSequence[i]))
 			{
 				deleteStack(&stack);
 				return false;
-			}
-			switch (bracketSequence[i])
-			{
-			case ')':
-				if (pop(stack) != ROUND_BRACKET_CODE)
-				{
-					deleteStack(&stack);
-					return false;
-				}
-				break;
-			case ']':
-				if (pop(stack) != SQUARE_BRACKET_CODE)
-				{
-					deleteStack(&stack);
-					return false;
-				}
-				break;
-			case '}':
-				if (pop(stack) != CURLY_BRACKET_CODE)
-				{
-					deleteStack(&stack);
-					return false;
-				}
-				break;
 			}
 		}
 	}
