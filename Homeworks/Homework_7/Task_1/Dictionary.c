@@ -28,6 +28,29 @@ struct Dictionary* createDictionary(void)
 
 void addElement(struct Dictionary* dictionary, int key, char* value)
 {
+	struct DictionaryElement* currentElement = dictionary->root;
+	while (currentElement != NULL)
+	{
+		if (currentElement->key == key)
+		{
+			strcpy(currentElement->value, value);
+			return;
+		}
+		if (key < currentElement->key)
+		{
+			if (currentElement->left == NULL)
+			{
+				break;
+			}
+			currentElement = currentElement->left;
+			continue;
+		}
+		if (currentElement->right == NULL)
+		{
+			break;
+		}
+		currentElement = currentElement->right;
+	}
 	struct DictionaryElement* newElement = malloc(sizeof(struct DictionaryElement));
 	if (newElement == NULL)
 	{
@@ -46,33 +69,12 @@ void addElement(struct Dictionary* dictionary, int key, char* value)
 		dictionary->root = newElement;
 		return;
 	}
-	struct DictionaryElement* currentElement = dictionary->root;
-	while (true)
+	if (key < currentElement->key)
 	{
-		if (currentElement->key == key)
-		{
-			free(newElement->value);
-			free(newElement);
-			strcpy(currentElement->value, value);
-			return;
-		}
-		if (key < currentElement->key)
-		{
-			if (currentElement->left == NULL)
-			{
-				currentElement->left = newElement;
-				return;
-			}
-			currentElement = currentElement->left;
-			continue;
-		}
-		if (currentElement->right == NULL)
-		{
-			currentElement->right = newElement;
-			return;
-		}
-		currentElement = currentElement->right;
+		currentElement->left = newElement;
+		return;
 	}
+	currentElement->right = newElement;
 }
 
 bool isEmpty(struct Dictionary* dictionary)
@@ -123,7 +125,6 @@ void deleteLeaf(struct Dictionary* dictionary, struct DictionaryElement* leaf, s
 	}
 	free(leaf->value);
 	free(leaf);
-	return;
 }
 
 void deleteRootWithOneBranch(struct Dictionary* dictionary, struct DictionaryElement* root, struct DictionaryElement* previousElement)
@@ -166,7 +167,6 @@ void deleteRootWithOneBranch(struct Dictionary* dictionary, struct DictionaryEle
 	}
 	free(root->value);
 	free(root);
-	return;
 }
 
 bool deleteElement(struct Dictionary* dictionary, int key)

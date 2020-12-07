@@ -38,14 +38,13 @@ void main(void)
 		printf("Введите номер команды: ");
 		scanf("%i", &commandNumber);
 		int key = 0;
-		char value[VALUE_LENGTH] = "\0";
+		char value[VALUE_LENGTH] = "";
 		switch (commandNumber)
 		{
 		case 0:
 			printf("Программа завершена");
 			break;
 		case 1:
-
 			printf("Введите ключ: ");
 			scanf("%i", &key);
 			printf("Введите значение: ");
