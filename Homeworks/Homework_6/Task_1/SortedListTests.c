@@ -37,6 +37,15 @@ bool deleteTest(void)
 	return result;
 }
 
+bool getValueFromHeadTest(void)
+{
+	struct List* list = createList();
+	add(list, 1);
+	bool result = getValueFromHead(list) == 1;
+	deleteList(&list);
+	return result;
+}
+
 bool isSortedTest(void)
 {
 	struct List* list = createList();
@@ -45,14 +54,18 @@ bool isSortedTest(void)
 	add(list, 11);
 	add(list, 0);
 	add(list, 5);
-	struct ListElement* currentElement = list->head;
-	while (currentElement->next != NULL)
+	int previousValue = getValueFromHead(list);
+	delete(list, previousValue);
+	while (!isEmpty(list))
 	{
-		if (currentElement->value > currentElement->next->value)
+		int currentValue = getValueFromHead(list);
+		delete(list, currentValue);
+		if (previousValue > currentValue)
 		{
+			deleteList(&list);
 			return false;
 		}
-		currentElement = currentElement->next;
+		previousValue = currentValue;
 	}
 	deleteList(&list);
 	return true;

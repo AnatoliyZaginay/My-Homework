@@ -3,6 +3,17 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+struct ListElement
+{
+	int value;
+	struct ListElement* next;
+};
+
+struct List
+{
+	struct ListElement* head;
+};
+
 struct List* createList(void)
 {
 	struct List* newList = malloc(sizeof(struct List));
@@ -73,6 +84,11 @@ bool delete(struct List* list, int value)
 		currentElement = currentElement->next;
 	}
 	return false;
+}
+
+int getValueFromHead(struct List* list)
+{
+	return list->head->value;
 }
 
 void deleteList(struct List** list)
