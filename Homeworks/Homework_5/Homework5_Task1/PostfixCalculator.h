@@ -1,11 +1,14 @@
 #pragma once
 
-#define ERROR_CODE_NOT_ENOUGH_NUMBERS -1
-#define ERROR_CODE_NOT_ENOUGH_OPERATIONS -2
-#define ERROR_CODE_DIVISION_BY_ZERO -3
-#define ERROR_CODE_WRONG_LINE -4
-#define ERROR_CODE_STACK_NOT_CREATED -5
-#define CORRECT_WORK_CODE 0
+enum ERROR_CODE
+{
+	ERROR_CODE_NOT_ENOUGH_NUMBERS,
+	ERROR_CODE_NOT_ENOUGH_OPERATIONS,
+	ERROR_CODE_DIVISION_BY_ZERO,
+	ERROR_CODE_WRONG_LINE,
+	ERROR_CODE_STACK_NOT_CREATED,
+	CORRECT_WORK_CODE
+};
 
-//Возвращает результат работы постфиксного калькулятора
+// Возвращает результат работы постфиксного калькулятора
 int postfixCalculator(const char line[], int* result);

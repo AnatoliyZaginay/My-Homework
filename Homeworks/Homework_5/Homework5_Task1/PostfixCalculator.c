@@ -5,8 +5,6 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-#define DIGIT_CODE 48
-
 int postfixCalculator(const char line[], int* result)
 {
 	struct Stack* stack = createStack();
@@ -18,7 +16,7 @@ int postfixCalculator(const char line[], int* result)
 	{
 		if (isdigit(line[i]))
 		{
-			int number = (int)line[i] - DIGIT_CODE;
+			int number = line[i] - '0';
 			push(stack, number);
 			continue;
 		}

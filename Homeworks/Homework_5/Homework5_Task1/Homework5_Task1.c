@@ -15,11 +15,7 @@ void main(void)
 		return;
 	}
 	setlocale(LC_ALL, "Rus");
-	char string[STRING_LENGTH];
-	for (int i = 0; i < STRING_LENGTH; ++i)
-	{
-		string[i] = '\0';
-	}
+	char string[STRING_LENGTH] = { 0 };
 	printf("Введите арифметическое выражение в постфиксном виде: ");
 	stringReading(string, STRING_LENGTH);
 	int result = 0;
