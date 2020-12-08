@@ -2,6 +2,7 @@
 
 #include "Tree.h"
 #include <stdlib.h>
+#include <string.h>
 
 bool deleteTreeTest(void)
 {
@@ -39,7 +40,18 @@ bool calculateTreeTest(void)
 	return result;
 }
 
+bool printTreeTest(void)
+{
+	struct Tree* tree = createTree();
+	fillTree(tree, "( - 150 ( * 25 ( + 7 ( / -32 16 ) ) ) )");
+	char string[100] = "";
+	printTree(tree, string);
+	bool result = strcmp(string, "( - 150 ( * 25 ( + 7 ( / -32 16 ) ) ) ) ") == 0;
+	deleteTree(&tree);
+	return result;
+}
+
 bool treeTests(void)
 {
-	return deleteTreeTest() && isEmptyTest() && fillTreeTest() && calculateTreeTest();
+	return deleteTreeTest() && isEmptyTest() && fillTreeTest() && calculateTreeTest() && printTreeTest();
 }

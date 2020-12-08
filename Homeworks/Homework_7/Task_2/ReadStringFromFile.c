@@ -1,7 +1,7 @@
 #include "ReadStringFromFile.h"
 #include <stdio.h>
 
-bool readStringFromFile(char string[], int length, char fileName[])
+bool readStringFromFile(char string[], int length, const char* fileName)
 {
 	FILE* file = fopen(fileName, "r");
 	if (file == NULL)

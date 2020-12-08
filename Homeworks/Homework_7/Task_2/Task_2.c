@@ -16,7 +16,7 @@ void main(void)
 		return;
 	}
 	setlocale(LC_ALL, "Rus");
-	char arithmeticExpressison[STRING_LENGTH] = { 0 };
+	char arithmeticExpressison[STRING_LENGTH] = "";
 	if (!readStringFromFile(arithmeticExpressison, STRING_LENGTH, FILE_NAME))
 	{
 		printf("File not found");
@@ -25,7 +25,9 @@ void main(void)
 	struct Tree* tree = createTree();
 	fillTree(tree, arithmeticExpressison);
 	printf("Арифметическое выражение, записанное в виде дерева разбора арифметического выражения: ");
-	printTree(tree);
+	char treeArithmeticExpressison[STRING_LENGTH] = "";
+	printTree(tree, treeArithmeticExpressison);
+	printf("%s", treeArithmeticExpressison);
 	printf("\nЗначение арифметического выражения: %f", calculateTree(tree));
 	deleteTree(&tree);
 }

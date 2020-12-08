@@ -22,12 +22,7 @@ struct Tree
 
 struct Tree* createTree(void)
 {
-	struct Tree* newTree = malloc(sizeof(struct Tree));
-	if (newTree != NULL)
-	{
-		newTree->root = NULL;
-	}
-	return newTree;
+	return calloc(1, sizeof(struct Tree));
 }
 
 int fromStringToNumber(char arithmeticExpression[], int* currentIndex, int length)
@@ -48,8 +43,24 @@ int fromStringToNumber(char arithmeticExpression[], int* currentIndex, int lengt
 	return number;
 }
 
-struct TreeElement* addTreeElement(char arithmeticExpression[], int* currentIndex, int length)
+bool isOperation(const char arithmeticExpression[], int index)
 {
+	return arithmeticExpression[index] == '+' ||
+		(arithmeticExpression[index] == '-' && !isdigit(arithmeticExpression[index + 1])) ||
+		arithmeticExpression[index] == '*' || arithmeticExpression[index] == '/';
+}
+
+struct TreeElement* addTreeElement(const char arithmeticExpression[], int* currentIndex, const int length)
+{
+	while ((*currentIndex) <= length && (arithmeticExpression[*currentIndex] == ' ' || arithmeticExpression[*currentIndex] == '(' ||
+		arithmeticExpression[*currentIndex] == ')'))
+	{
+		++(*currentIndex);
+	}
+	if ((*currentIndex) > length)
+	{
+		return NULL;
+	}
 	struct TreeElement* newElement = malloc(sizeof(struct TreeElement));
 	if (newElement == NULL)
 	{
@@ -59,19 +70,7 @@ struct TreeElement* addTreeElement(char arithmeticExpression[], int* currentInde
 	newElement->symbol = '\0';
 	newElement->left = NULL;
 	newElement->right = NULL;
-	while ((*currentIndex) <= length && (arithmeticExpression[*currentIndex] == ' ' || arithmeticExpression[*currentIndex] == '(' ||
-		arithmeticExpression[*currentIndex] == ')'))
-	{
-		++(*currentIndex);
-	}
-	if ((*currentIndex) > length)
-	{
-		free(newElement);
-		return NULL;
-	}
-	if (arithmeticExpression[*currentIndex] == '+' ||
-		(arithmeticExpression[*currentIndex] == '-' && !isdigit(arithmeticExpression[*currentIndex + 1])) ||
-		arithmeticExpression[*currentIndex] == '*' || arithmeticExpression[*currentIndex] == '/')
+	if (isOperation(arithmeticExpression, *currentIndex))
 	{
 		newElement->symbol = arithmeticExpression[*currentIndex];
 		++(*currentIndex);
@@ -95,22 +94,22 @@ bool isEmpty(struct Tree* tree)
 	return tree->root == NULL;
 }
 
-void printSubtree(struct TreeElement* element)
+void printSubtree(struct TreeElement* element, char string[])
 {
 	if (element->symbol != '\0')
 	{
-		printf("( %c ", element->symbol);
-		printSubtree(element->left);
-		printSubtree(element->right);
-		printf(") ");
+		sprintf(string, "%s( %c ", string, element->symbol);
+		printSubtree(element->left, string);
+		printSubtree(element->right, string);
+		sprintf(string, "%s) ", string);
 		return;
 	}
-	printf("%i ", element->number);
+	sprintf(string, "%s%i ", string, element->number);
 }
 
-void printTree(struct Tree* tree)
+void printTree(struct Tree* tree, char string[])
 {
-	printSubtree(tree->root);
+	printSubtree(tree->root, string);
 }
 
 float calculateSubtree(struct TreeElement* element)
