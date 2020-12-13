@@ -19,7 +19,7 @@ bool isEmpty(struct Dictionary* dictionary);
 
 // Возвращает значение из словаря по ключу,
 // key остаётся во владении вызывающего,
-// возвращаемое значение остаётся во владении dictionary
+// возвращаемый указатель остаётся во владении dictionary
 char* getValue(struct Dictionary* dictionary, char* key);
 
 // Проверяет, содержится ли полученный ключ в словаре
