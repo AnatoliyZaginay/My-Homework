@@ -75,6 +75,7 @@ struct HashTable* createHashTable(void)
 	newHashTable->size = DEFAULT_SIZE;
 	newHashTable->countOfElements = 0;
 	newHashTable->fillFactor = 0;
+	newHashTable->buckets = NULL;
 	if (!createBuckets(newHashTable))
 	{
 		deleteHashTable(&newHashTable);
