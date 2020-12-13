@@ -7,7 +7,7 @@
 struct DictionaryElement
 {
 	int height;
-	int key;
+	char* key;
 	char* value;
 	struct DictionaryElement* left;
 	struct DictionaryElement* right;
@@ -20,12 +20,7 @@ struct Dictionary
 
 struct Dictionary* createDictionary(void)
 {
-	struct Dictionary* newDictionary = malloc(sizeof(struct Dictionary));
-	if (newDictionary != NULL)
-	{
-		newDictionary->root = NULL;
-	}
-	return newDictionary;
+	return calloc(1, sizeof(struct Dictionary));
 }
 
 int getHeight(struct DictionaryElement* element)
@@ -59,12 +54,7 @@ void updateHeight(struct DictionaryElement* element)
 	}
 	const int heightLeft = getHeight(element->left);
 	const int heightRight = getHeight(element->right);
-	if (heightLeft > heightRight)
-	{
-		element->height = heightLeft + 1;
-		return;
-	}
-	element->height = heightRight + 1;
+	element->height = (heightLeft > heightRight ? heightLeft : heightRight) + 1;
 }
 
 int disbalance(struct DictionaryElement* element)
@@ -82,9 +72,9 @@ bool isBalanced(struct DictionaryElement* element)
 	{
 		return true;
 	}
-	int elementDisbalance = disbalance(element);
-	bool leftChildrenBalance = isBalanced(element->left);
-	bool rightChildrenBalance = isBalanced(element->right);
+	const int elementDisbalance = disbalance(element);
+	const bool leftChildrenBalance = isBalanced(element->left);
+	const bool rightChildrenBalance = isBalanced(element->right);
 	return elementDisbalance <= 1 && elementDisbalance >= -1 && leftChildrenBalance && rightChildrenBalance;
 }
 
@@ -151,14 +141,16 @@ struct DictionaryElement* balance(struct DictionaryElement* element)
 
 struct DictionaryElement* balanceAfterAdding(struct DictionaryElement* currentElement, struct DictionaryElement* elementToAdd)
 {
-	if (currentElement->key == elementToAdd->key)
+	if (strcmp(currentElement->key, elementToAdd->key) == 0)
 	{
-		strcpy(currentElement->value, elementToAdd->value);
-		free(elementToAdd->value);
+		free(currentElement->value);
+		currentElement->value = elementToAdd->value;
+		elementToAdd->value = NULL;
+		free(elementToAdd->key);
 		free(elementToAdd);
 		return currentElement;
 	}
-	if (elementToAdd->key < currentElement->key)
+	if (strcmp(elementToAdd->key, currentElement->key) < 0)
 	{
 		if (currentElement->left == NULL)
 		{
@@ -183,15 +175,19 @@ struct DictionaryElement* balanceAfterAdding(struct DictionaryElement* currentEl
 	return balance(currentElement);
 }
 
-void addElement(struct Dictionary* dictionary, int key, char* value)
+void addElement(struct Dictionary* dictionary, char* key, char* value)
 {
 	struct DictionaryElement* newElement = malloc(sizeof(struct DictionaryElement));
 	if (newElement == NULL)
 	{
 		return;
 	}
-	newElement->key = key;
 	newElement->height = 0;
+	newElement->key = malloc(strlen(key) + 1);
+	if (newElement->key != NULL)
+	{
+		strcpy(newElement->key, key);
+	}
 	newElement->value = malloc(strlen(value) + 1);
 	if (newElement->value != NULL)
 	{
@@ -212,16 +208,16 @@ bool isEmpty(struct Dictionary* dictionary)
 	return dictionary->root == NULL;
 }
 
-char* getValue(struct Dictionary* dictionary, int key)
+char* getValue(struct Dictionary* dictionary, char* key)
 {
 	struct DictionaryElement* currentElement = dictionary->root;
 	while (currentElement != NULL)
 	{
-		if (currentElement->key == key)
+		if (strcmp(currentElement->key, key) == 0)
 		{
 			return currentElement->value;
 		}
-		if (key < currentElement->key)
+		if (strcmp(key, currentElement->key) < 0)
 		{
 			currentElement = currentElement->left;
 			continue;
@@ -231,7 +227,7 @@ char* getValue(struct Dictionary* dictionary, int key)
 	return NULL;
 }
 
-bool checkKey(struct Dictionary* dictionary, int key)
+bool checkKey(struct Dictionary* dictionary, char* key)
 {
 	return getValue(dictionary, key) != NULL;
 }
@@ -245,26 +241,28 @@ struct DictionaryElement* findRightMinimum(struct DictionaryElement* currentElem
 	return findRightMinimum(currentElement->left);
 }
 
-struct DictionaryElement* deleteMinimum(struct DictionaryElement* currentElement) // удаление узла с минимальным ключом из дерева p
+struct DictionaryElement* deleteMinimum(struct DictionaryElement* currentElement)
 {
 	if (currentElement->left == NULL)
+	{
 		return currentElement->right;
+	}
 	currentElement->left = deleteMinimum(currentElement->left);
 	return balance(currentElement);
 }
 
-struct DictionaryElement* balanceAfterDeleting(struct DictionaryElement* currentElement, int key)
+struct DictionaryElement* balanceAfterDeleting(struct DictionaryElement* currentElement, char* key)
 {
 	if (currentElement == NULL)
 	{
 		return NULL;
 	}
-	if (key < currentElement->key)
+	if (strcmp(key, currentElement->key) < 0)
 	{
 		currentElement->left = balanceAfterDeleting(currentElement->left, key);
 		return balance(currentElement);
 	}
-	if (key > currentElement->key)
+	if (strcmp(key, currentElement->key) > 0)
 	{
 		currentElement->right = balanceAfterDeleting(currentElement->right, key);
 		return balance(currentElement);
@@ -274,6 +272,7 @@ struct DictionaryElement* balanceAfterDeleting(struct DictionaryElement* current
 		struct DictionaryElement* leftChild = currentElement->left;
 		struct DictionaryElement* rightChild = currentElement->right;
 		free(currentElement->value);
+		free(currentElement->key);
 		free(currentElement);
 		if (rightChild == NULL)
 		{
@@ -286,7 +285,7 @@ struct DictionaryElement* balanceAfterDeleting(struct DictionaryElement* current
 	}
 }
 
-bool deleteElement(struct Dictionary* dictionary, int key)
+bool deleteElement(struct Dictionary* dictionary, char* key)
 {
 	if (!checkKey(dictionary, key))
 	{

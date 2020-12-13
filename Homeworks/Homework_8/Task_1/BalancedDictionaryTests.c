@@ -1,4 +1,4 @@
-#include "BalancedDictionaryTests.h";
+#include "BalancedDictionaryTests.h"
 
 #include "BalancedDictionary.h"
 #include <stdlib.h>
@@ -22,7 +22,7 @@ bool isEmptyTest(void)
 bool addElementTest(void)
 {
 	struct Dictionary* dictionary = createDictionary();
-	addElement(dictionary, 5, "test");
+	addElement(dictionary, "5", "test");
 	bool result = !isEmpty(dictionary);
 	deleteDictionary(&dictionary);
 	return result;
@@ -31,11 +31,11 @@ bool addElementTest(void)
 bool checkKeyTest(void)
 {
 	struct Dictionary* dictionary = createDictionary();
-	addElement(dictionary, 5, "test1");
-	addElement(dictionary, 2, "test2");
-	addElement(dictionary, 6, "test3");
-	addElement(dictionary, 3, "test4");
-	bool result = checkKey(dictionary, 2) && checkKey(dictionary, 3) && checkKey(dictionary, 5) && checkKey(dictionary, 6);
+	addElement(dictionary, "5", "test1");
+	addElement(dictionary, "2", "test2");
+	addElement(dictionary, "6", "test3");
+	addElement(dictionary, "3", "test4");
+	bool result = checkKey(dictionary, "2") && checkKey(dictionary, "3") && checkKey(dictionary, "5") && checkKey(dictionary, "6");
 	deleteDictionary(&dictionary);
 	return result;
 }
@@ -43,12 +43,12 @@ bool checkKeyTest(void)
 bool getValueTest(void)
 {
 	struct Dictionary* dictionary = createDictionary();
-	addElement(dictionary, 5, "test1");
-	addElement(dictionary, 2, "test2");
-	addElement(dictionary, 6, "test3");
-	addElement(dictionary, 3, "test4");
-	bool result = strcmp(getValue(dictionary, 2), "test2") == 0 && strcmp(getValue(dictionary, 3), "test4") == 0 &&
-		strcmp(getValue(dictionary, 5), "test1") == 0 && strcmp(getValue(dictionary, 6), "test3") == 0;
+	addElement(dictionary, "5", "test1");
+	addElement(dictionary, "2", "test2");
+	addElement(dictionary, "6", "test3");
+	addElement(dictionary, "3", "test4");
+	bool result = strcmp(getValue(dictionary, "2"), "test2") == 0 && strcmp(getValue(dictionary, "3"), "test4") == 0 &&
+		strcmp(getValue(dictionary, "5"), "test1") == 0 && strcmp(getValue(dictionary, "6"), "test3") == 0;
 	deleteDictionary(&dictionary);
 	return result;
 }
@@ -56,13 +56,13 @@ bool getValueTest(void)
 bool deleteElementTest(void)
 {
 	struct Dictionary* dictionary = createDictionary();
-	addElement(dictionary, 5, "test1");
-	addElement(dictionary, 2, "test2");
-	addElement(dictionary, 6, "test3");
-	addElement(dictionary, 3, "test4");
-	bool result = !deleteElement(dictionary, 1) && deleteElement(dictionary, 3) && !checkKey(dictionary, 3) &&
-		deleteElement(dictionary, 5) && !checkKey(dictionary, 5) && deleteElement(dictionary, 6) &&
-		!checkKey(dictionary, 6) && deleteElement(dictionary, 2) && !checkKey(dictionary, 2) &&
+	addElement(dictionary, "5", "test1");
+	addElement(dictionary, "2", "test2");
+	addElement(dictionary, "6", "test3");
+	addElement(dictionary, "3", "test4");
+	bool result = !deleteElement(dictionary, "1") && deleteElement(dictionary, "3") && !checkKey(dictionary, "3") &&
+		deleteElement(dictionary, "5") && !checkKey(dictionary, "5") && deleteElement(dictionary, "6") &&
+		!checkKey(dictionary, "6") && deleteElement(dictionary, "2") && !checkKey(dictionary, "2") &&
 		isEmpty(dictionary);
 	deleteDictionary(&dictionary);
 	return result;
@@ -72,19 +72,19 @@ bool dictionaryBalanceTest(void)
 {
 	struct Dictionary* dictionary = createDictionary();
 	bool result = dictionaryBalance(dictionary);
-	addElement(dictionary, 5, "test");
+	addElement(dictionary, "5", "test");
 	result = result && dictionaryBalance(dictionary);
-	addElement(dictionary, 6, "test");
+	addElement(dictionary, "6", "test");
 	result = result && dictionaryBalance(dictionary);
-	addElement(dictionary, 7, "test");
+	addElement(dictionary, "7", "test");
 	result = result && dictionaryBalance(dictionary);
-	addElement(dictionary, 4, "test");
+	addElement(dictionary, "4", "test");
 	result = result && dictionaryBalance(dictionary);
-	addElement(dictionary, 3, "test");
+	addElement(dictionary, "3", "test");
 	result = result && dictionaryBalance(dictionary);
-	deleteElement(dictionary, 5);
+	deleteElement(dictionary, "5");
 	result = result && dictionaryBalance(dictionary);
-	deleteElement(dictionary, 7);
+	deleteElement(dictionary, "7");
 	result = result && dictionaryBalance(dictionary);
 	deleteDictionary(&dictionary);
 	return result;

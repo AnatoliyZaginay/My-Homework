@@ -6,6 +6,7 @@
 #include <string.h>
 
 #define VALUE_LENGTH 30
+#define KEY_LENGTH 30
 
 void commands(void)
 {
@@ -37,8 +38,8 @@ void main(void)
 		commands();
 		printf("Введите номер команды: ");
 		scanf("%i", &commandNumber);
-		int key = 0;
-		char value[VALUE_LENGTH] = "\0";
+		char key[KEY_LENGTH] = "";
+		char value[VALUE_LENGTH] = "";
 		switch (commandNumber)
 		{
 		case 0:
@@ -47,7 +48,7 @@ void main(void)
 		case 1:
 
 			printf("Введите ключ: ");
-			scanf("%i", &key);
+			scanf("%s", &key);
 			printf("Введите значение: ");
 			scanf("%s", &value);
 			addElement(dictionary, key, value);
@@ -55,7 +56,7 @@ void main(void)
 			break;
 		case 2:
 			printf("Введите ключ: ");
-			scanf("%i", &key);
+			scanf("%s", &key);
 			char* returnedValue = getValue(dictionary, key);
 			if (returnedValue == NULL)
 			{
@@ -68,7 +69,7 @@ void main(void)
 			break;
 		case 3:
 			printf("Введите ключ: ");
-			scanf("%i", &key);
+			scanf("%s", &key);
 			if (checkKey(dictionary, key))
 			{
 				printf("Введённый ключ найден в словаре\n");
@@ -80,7 +81,7 @@ void main(void)
 			break;
 		case 4:
 			printf("Введите ключ: ");
-			scanf("%i", &key);
+			scanf("%s", &key);
 			if (deleteElement(dictionary, key))
 			{
 				printf("Введённый ключ и связанное с ним значение удалены из словаря\n");
