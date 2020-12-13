@@ -18,12 +18,7 @@ struct List
 
 struct List* createList(void)
 {
-	struct List* newList = malloc(sizeof(struct List));
-	if (newList != NULL)
-	{
-		newList->head = NULL;
-	}
-	return newList;
+	return calloc(1, sizeof(struct List));
 }
 
 bool isEmpty(struct List* list)

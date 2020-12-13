@@ -3,7 +3,7 @@
 #include "List.h"
 #include <stdlib.h>
 
-#define DEFAULT_SIZE 4;
+#define DEFAULT_SIZE 4
 
 struct Bucket
 {
@@ -19,23 +19,50 @@ struct HashTable
 	struct Bucket** buckets;
 };
 
-struct Bucket** createBuckets(const int size)
+void deleteHashTable(struct HashTable** hashTable)
 {
-	struct Bucket** buckets = malloc(sizeof(struct Bucket*) * size);
+	if ((*hashTable)->buckets != NULL)
+	{
+		for (int i = 0; i < (*hashTable)->size; ++i)
+		{
+			if ((*hashTable)->buckets[i] != NULL)
+			{
+				if ((*hashTable)->buckets[i]->list != NULL)
+				{
+					deleteList(&((*hashTable)->buckets[i]->list));
+				}
+				free((*hashTable)->buckets[i]);
+			}
+		}
+		free((*hashTable)->buckets);
+	}
+	free(*hashTable);
+	*hashTable = NULL;
+}
+
+bool createBuckets(struct HashTable* hashTable)
+{
+	struct Bucket** buckets = malloc(sizeof(struct Bucket*) * hashTable->size);
 	if (buckets == NULL)
 	{
-		return NULL;
+		return false;
 	}
-	for (int i = 0; i < size; ++i)
+	for (int i = 0; i < hashTable->size; ++i)
 	{
 		buckets[i] = malloc(sizeof(struct Bucket));
-		if (buckets[i] != NULL)
+		if (buckets[i] == NULL)
 		{
-			buckets[i]->list = createList();
-			buckets[i]->listLength = 0;
+			return false;
 		}
+		buckets[i]->list = createList();
+		if (buckets[i]->list == NULL)
+		{
+			return false;
+		}
+		buckets[i]->listLength = 0;
 	}
-	return buckets;
+	hashTable->buckets = buckets;
+	return true;
 }
 
 struct HashTable* createHashTable(void)
@@ -48,7 +75,10 @@ struct HashTable* createHashTable(void)
 	newHashTable->size = DEFAULT_SIZE;
 	newHashTable->countOfElements = 0;
 	newHashTable->fillFactor = 0;
-	newHashTable->buckets = createBuckets(newHashTable->size);
+	if (!createBuckets(newHashTable))
+	{
+		deleteHashTable(&newHashTable);
+	}
 	return newHashTable;
 }
 
@@ -106,7 +136,10 @@ void updateHashTableSize(struct HashTable* hashTable)
 	free(hashTable->buckets);
 	hashTable->size *= 2;
 	hashTable->countOfElements = 0;
-	hashTable->buckets = createBuckets(hashTable->size);
+	if (!createBuckets(hashTable))
+	{
+		deleteHashTable(&hashTable);
+	}
 	while (!isEmpty(saver))
 	{
 		char* value = getValueFromHead(saver);
@@ -125,18 +158,6 @@ void add(struct HashTable* hashTable, char* value)
 	{
 		updateHashTableSize(hashTable);
 	}
-}
-
-void deleteHashTable(struct HashTable** hashTable)
-{
-	for (int i = 0; i < (*hashTable)->size; ++i)
-	{
-		deleteList(&((*hashTable)->buckets[i]->list));
-		free((*hashTable)->buckets[i]);
-	}
-	free((*hashTable)->buckets);
-	free(*hashTable);
-	*hashTable = NULL;
 }
 
 void printHashTable(struct HashTable* hashTable)
@@ -185,14 +206,7 @@ float getAverageListLength(struct HashTable* hashTable)
 
 bool isHashTableEmpty(struct HashTable* hashTable)
 {
-	for (int i = 0; i < hashTable->size; ++i)
-	{
-		if (hashTable->buckets[i]->listLength > 0 && !isEmpty(hashTable->buckets[i]->list))
-		{
-			return false;
-		}
-	}
-	return true;
+	return hashTable->countOfElements == 0;
 }
 
 bool checkValueInHashTable(struct HashTable* hashTable, char* value)

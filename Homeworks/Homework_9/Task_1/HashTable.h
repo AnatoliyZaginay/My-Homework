@@ -4,14 +4,15 @@
 
 struct HashTable;
 
+// Удаляет хеш-таблицу
+void deleteHashTable(struct HashTable** hashTable);
+
 // Создаёт хеш-таблицу
 struct HashTable* createHashTable(void);
 
-// Добавляет значение в хеш-таблицу
+// Добавляет значение в хеш-таблицу,
+// value остаётся во владении вызывающего
 void add(struct HashTable* hashTable, char* value);
-
-// Удаляет хеш-таблицу
-void deleteHashTable(struct HashTable** hashTable);
 
 // Распечатывает все элементы хеш-таблицы
 void printHashTable(struct HashTable* hashTable);
@@ -28,5 +29,6 @@ float getAverageListLength(struct HashTable* hashTable);
 // Проверяет, содержится ли в хеш-таблице хотя бы один элемент
 bool isHashTableEmpty(struct HashTable* hashTable);
 
-// Проверяет, содержится ли в хеш-таблице полученное значение
+// Проверяет, содержится ли в хеш-таблице полученное значение,
+// value остаётся во владении вызывающего
 bool checkValueInHashTable(struct HashTable* hashTable, char* value);

@@ -12,7 +12,6 @@ bool readFromFile(struct HashTable* hashTable, const char* fileName)
 	FILE* file = fopen(fileName, "r");
 	if (file == NULL)
 	{
-		char* line = "";
 		return false;
 	}
 	while (!feof(file))
