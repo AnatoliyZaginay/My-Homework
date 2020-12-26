@@ -1,0 +1,5 @@
+abcdabcd /*abcd abcd*/
+/***/abc
+//*/*/abc
+///*abcd/ab//*cd*abcd/*/abc
+/*abcdabcd
