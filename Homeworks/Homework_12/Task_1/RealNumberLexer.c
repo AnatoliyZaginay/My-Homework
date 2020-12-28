@@ -70,9 +70,10 @@ bool isRealNumber(char* line)
 			}
 			if (line[i] == '-' || line[i] == '+')
 			{
-				currentState = thirdDigit;
+				currentState = sign;
 				break;
 			}
+			return false;
 		case sign:
 			if (isdigit(line[i]))
 			{
@@ -88,9 +89,5 @@ bool isRealNumber(char* line)
 			return false;
 		}
 	}
-	if (currentState == firstDigit || currentState == secondDigit || currentState == thirdDigit)
-	{
-		return true;
-	}
-	return false;
+	return currentState == firstDigit || currentState == secondDigit || currentState == thirdDigit;
 }
